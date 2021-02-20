@@ -210,7 +210,6 @@ Scene Run(const fs::path& path) {
     auto camera          = std::optional<Camera>();
     auto skipLine        = [&file]() {
         auto tmp = std::string{};
-        // Skip '{' line
         std::getline(file, tmp);
     };
 
