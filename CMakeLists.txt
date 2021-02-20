@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 project(COSIG)
 
-add_executable(cosig
-    main
-)
+file(COPY scene.txt DESTINATION  src)
+file(COPY evaluation.txt DESTINATION  src)
+
+add_subdirectory(src)

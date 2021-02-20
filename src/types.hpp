@@ -1,0 +1,18 @@
+#pragma once
+
+#include <memory>
+#include <tuple>
+#include <vector>
+
+#include "camera.hpp"
+#include "figure.hpp"
+#include "image.hpp"
+#include "light.hpp"
+#include "material.hpp"
+#include "transformation.hpp"
+
+using Transformations = std::vector<Transformation::Shared>;
+using Materials       = std::vector<Material::Shared>;
+using Lights          = std::vector<Light>;
+using Figures         = std::vector<Figure::Unique>;
+using Scene           = std::tuple<Image, Camera, Lights, Figures>;
