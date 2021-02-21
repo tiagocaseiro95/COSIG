@@ -33,7 +33,7 @@ static auto ReadImage(std::fstream& file) {
 }
 
 static auto ReadTransformation(std::fstream& file) {
-    auto matrixes = std::vector<Matrix44f>();
+    auto matrices = std::vector<Matrix44f>();
     for (auto line = std::string{}; std::getline(file, line) && line != END_CHAR;) {
         auto is   = std::istringstream{line};
         auto type = std::string{};
@@ -43,28 +43,28 @@ static auto ReadTransformation(std::fstream& file) {
             auto y = float{};
             auto z = float{};
             is >> x >> y >> z;
-            matrixes.emplace_back(Scale(x, y, z));
+            matrices.emplace_back(Scale(x, y, z));
         } else if (type == "T") {
             auto x = float{};
             auto y = float{};
             auto z = float{};
             is >> x >> y >> z;
-            matrixes.emplace_back(Translation(x, y, z));
+            matrices.emplace_back(Translation(x, y, z));
         } else if (type == "Rx") {
-            auto x = float{};
-            is >> x;
-            matrixes.emplace_back(Rotation(x, 0, 0));
+            auto angle = float{};
+            is >> angle;
+            matrices.emplace_back(RotationX(angle));
         } else if (type == "Ry") {
-            auto y = float{};
-            is >> y;
-            matrixes.emplace_back(Rotation(0, y, 0));
+            auto angle = float{};
+            is >> angle;
+            matrices.emplace_back(RotationY(angle));
         } else if (type == "Rz") {
-            auto z = float{};
-            is >> z;
-            matrixes.emplace_back(Rotation(0, 0, z));
+            auto angle = float{};
+            is >> angle;
+            matrices.emplace_back(RotationZ(angle));
         }
     }
-    return Transformation::Build(matrixes);
+    return Transformation::Build(matrices);
 }
 
 static auto ReadMaterial(std::fstream& file) {
