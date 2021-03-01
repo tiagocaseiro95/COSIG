@@ -11,6 +11,7 @@ add_executable(cosig
     material
     parser
     transformation
+    ray
  )
 
 target_link_libraries(cosig
