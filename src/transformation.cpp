@@ -10,7 +10,7 @@ Transformation::Transformation(const std::vector<Matrix44f>& _matrices) : matrix
 
 template <typename Number>
 static constexpr Number ToRadians(const Number degrees) {
-    return degrees * std::numbers::pi_v<Number> / 180.;
+    return degrees * std::numbers::pi_v<Number> / 180.f;
 }
 
 Matrix44f Scale(float x, float y, float z) {
