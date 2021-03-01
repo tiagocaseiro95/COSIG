@@ -26,19 +26,17 @@ class Material {
         float _reflection_cof,
         float _refraction_cof,
         float _refraction_index)
-      : color_(_color), ambient_cof_(_ambient_cof), diffuse_cof_(_diffuse_cof),
-        reflection_cof_(_reflection_cof), refraction_cof_(_refraction_cof),
-        refraction_index_(_refraction_index) {}
+      : color(_color), ambient_cof(_ambient_cof), diffuse_cof(_diffuse_cof),
+        reflection_cof(_reflection_cof), refraction_cof(_refraction_cof),
+        refraction_index(_refraction_index) {}
 
 
     friend std::ostream& operator<<(std::ostream& o, const Material& material);
 
-
-  private:
-    const Color color_;
-    const float ambient_cof_;
-    const float diffuse_cof_;
-    const float reflection_cof_;
-    const float refraction_cof_;
-    const float refraction_index_;
+    const Color color;
+    const float ambient_cof;
+    const float diffuse_cof;
+    const float reflection_cof;
+    const float refraction_cof;
+    const float refraction_index;
 };
