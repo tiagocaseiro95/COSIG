@@ -11,7 +11,17 @@ class Transformation {
     static Shared Build(const std::vector<Matrix44f>& matrices) {
         return std::make_shared<Transformation>(matrices);
     }
-    Transformation(const std::vector<Matrix44f>& _matrices);
+    explicit Transformation(const std::vector<Matrix44f>& _matrices);
+
+    template <typename T>
+    void transformPoint(Vec3<T>& point) {
+        matrix_.multVecMatrix(point, point);
+    }
+
+    template <typename T>
+    void transformDirection(Vec3<T>& direction) {
+        matrix_.multVecMatrix(direction, direction);
+    }
 
   private:
     const Matrix44f matrix_;
