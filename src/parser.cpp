@@ -29,8 +29,9 @@ static auto ReadImage(std::fstream& file) {
 
     std::getline(file, line);
     auto color = ReadColor(line);
+    color *= 255;
 
-    return Image(width, height, color);
+    return Image(width, height, {u_char(color.x), u_char(color.y), u_char(color.z)});
 }
 
 static auto ReadTransformation(std::fstream& file) {
