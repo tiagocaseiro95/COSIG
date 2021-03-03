@@ -2,6 +2,7 @@
 
 #include <chrono>
 #include <fstream>
+#include <numeric>
 #include <optional>
 #include <vector>
 
@@ -66,7 +67,9 @@ static auto ReadTransformation(std::fstream& file) {
             matrices.emplace_back(RotationZ(angle));
         }
     }
-    return Transformation::Build(matrices);
+    auto matrix = std::reduce(
+        std::cbegin(matrices), std::cend(matrices), Matrix44f{}, std::multiplies{});
+    return Transformation::Build(matrix);
 }
 
 static auto ReadMaterial(std::fstream& file) {

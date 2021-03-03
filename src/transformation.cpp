@@ -2,15 +2,14 @@
 
 #include <cmath>
 #include <numbers>
-#include <numeric>
-
-Transformation::Transformation(const std::vector<Matrix44f>& _matrices) : matrix_{} {
-    std::reduce(_matrices.cbegin(), _matrices.cend(), matrix_, std::multiplies{});
-}
-
-template <typename Number>
-static constexpr Number ToRadians(const Number degrees) {
-    return degrees * std::numbers::pi_v<Number> / 180.f;
+/**
+ * @brief Converts from degrees to radians
+ *
+ * @param degrees
+ * @return constexpr float
+ */
+static constexpr float ToRadians(const float degrees) {
+    return degrees * std::numbers::pi_v<float> / 180.f;
 }
 
 Matrix44f Scale(float x, float y, float z) {
