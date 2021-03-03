@@ -14,7 +14,7 @@ void Box::print(std::ostream& o) const {
 }
 
 void Triangle::print(std::ostream& o) const {
-    o << "v0_: " << v0_ << std::endl;
-    o << "v1_: " << v1_ << std::endl;
-    o << "v2_: " << v2_ << std::endl;
+    o << "v0: " << v0 << std::endl;
+    o << "v1: " << v1 << std::endl;
+    o << "v2: " << v2 << std::endl;
 }
