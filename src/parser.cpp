@@ -247,7 +247,7 @@ Scene Run(const fs::path& path) {
         } else if (name == "Triangles") {
             skipLine();
             auto triangles = ReadTriangles(file, transformations, materials);
-            std::move(triangles.begin(), triangles.end(), std::back_inserter(figures));
+            std::move(std::begin(triangles), std::end(triangles), std::back_inserter(figures));
         }
     }
 
