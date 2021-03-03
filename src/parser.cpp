@@ -3,9 +3,12 @@
 #include <algorithm>
 #include <chrono>
 #include <fstream>
+#include <iterator>
 #include <numeric>
 #include <optional>
 #include <vector>
+
+#include "color.hpp"
 
 namespace Parser {
 
@@ -15,9 +18,16 @@ namespace ranges = std::ranges;
 auto constexpr END_CHAR = "}";
 
 static inline auto ReadColor(const std::string& line) {
-    auto color = Vec3f();
-    auto is    = std::istringstream{line};
-    is >> color[0] >> color[1] >> color[2];
+    auto is  = std::istringstream{line};
+    auto itr = std::istream_iterator<float>(is);
+
+    auto r = u_char(*itr * 255);
+    std::next(itr);
+    auto g = u_char(*itr * 255);
+    std::next(itr);
+    auto b = u_char(*itr * 255);
+
+    auto color = Color(r, g, b);
     return color;
 }
 
@@ -32,9 +42,8 @@ static auto ReadImage(std::fstream& file) {
 
     std::getline(file, line);
     auto color = ReadColor(line);
-    color *= 255;
 
-    return Image(width, height, {u_char(color.x), u_char(color.y), u_char(color.z)});
+    return Image(width, height, color);
 }
 
 static auto ReadTransformation(std::fstream& file) {

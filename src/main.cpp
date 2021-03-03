@@ -1,8 +1,10 @@
+#include <chrono>
 #include <iostream>
 
 #include <boost/program_options.hpp>
 
 #include "parser.hpp"
+#include "raytracer.hpp"
 #include "types.hpp"
 
 namespace po = boost::program_options;
@@ -32,12 +34,14 @@ int main(int ac, char const* av[]) {
         std::cout << "Scene file must be set" << std::endl;
         return 1;
     }
-
-    auto scene = Parser::Run(path);
-
-    Render(scene);
+    // auto now        = std::chrono::steady_clock::now();
+    auto scene      = Parser::Run(path);
+    auto ray_tracer = RayTracer();
+    ray_tracer.render(scene, "output.ppm");
+    // auto elapsed = std::chrono::steady_clock::now() - now;
+    // std::cout << "Time elapsed: "
+    //           << std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count() << " ms"
+    //           << std::endl;
 
     return 0;
 }
-
-void Render(const Scene& scene) {}

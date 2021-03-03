@@ -1,12 +1,12 @@
 #pragma once
 
+#include "color.hpp"
 #include "geometry.hpp"
 
 #include <memory>
 
 class Material {
   public:
-    using Color  = Vec3f;
     using Shared = std::shared_ptr<Material>;
 
     static Shared Build(

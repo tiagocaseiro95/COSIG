@@ -12,6 +12,7 @@ add_executable(cosig
     parser
     transformation
     ray
+    raytracer
  )
 
 target_link_libraries(cosig
