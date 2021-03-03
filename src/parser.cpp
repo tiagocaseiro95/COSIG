@@ -1,5 +1,6 @@
 #include "parser.hpp"
 
+#include <algorithm>
 #include <chrono>
 #include <fstream>
 #include <numeric>
@@ -8,7 +9,8 @@
 
 namespace Parser {
 
-namespace fs = std::filesystem;
+namespace fs     = std::filesystem;
+namespace ranges = std::ranges;
 
 auto constexpr END_CHAR = "}";
 
@@ -246,8 +248,8 @@ Scene Run(const fs::path& path) {
             figures.emplace_back(ReadBox(file, transformations, materials));
         } else if (name == "Triangles") {
             skipLine();
-            auto triangles = ReadTriangles(file, transformations, materials);
-            std::move(std::begin(triangles), std::end(triangles), std::back_inserter(figures));
+            ranges::move(
+                ReadTriangles(file, transformations, materials), std::back_inserter(figures));
         }
     }
 
