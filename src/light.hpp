@@ -7,10 +7,9 @@ class Light {
   public:
     using Color = Vec3f;
 
-    Light(const Transformation::Shared& _transformation, const Color& _color)
-      : transformation_(_transformation), color_(_color) {}
+    Light(const Transformation::Shared& _world, const Color& _color)
+      : world(_world), color(_color) {}
 
-  private:
-    const Transformation::Shared transformation_;
-    const Color color_;
+    const Transformation::Shared world;
+    const Color color;
 };

@@ -112,7 +112,7 @@ static auto ReadCamera(std::fstream& file, const Transformations& transformation
     is       = std::istringstream{line};
     is >> fov;
 
-    return Camera(transformation, distance, fov);
+    return Camera(Transformation::Build(transformation->inverse()), distance, fov);
 }
 
 static auto ReadLight(std::fstream& file, const Transformations& transformations) {
@@ -213,8 +213,8 @@ Scene Run(const fs::path& path) {
     auto materials       = Materials();
     auto figures         = Figures();
     auto lights          = Lights();
-    auto image           = std::optional<Image>();
-    auto camera          = std::optional<Camera>();
+    auto image           = std::optional<Image>(std::nullopt);
+    auto camera          = std::optional<Camera>(std::nullopt);
     auto skipLine        = [&file]() {
         auto tmp = std::string{};
         std::getline(file, tmp);
@@ -227,7 +227,7 @@ Scene Run(const fs::path& path) {
 
         if (name == "Image") {
             skipLine();
-            image = ReadImage(file);
+            image.emplace(ReadImage(file));
         } else if (name == "Transformation") {
             skipLine();
             transformations.emplace_back(ReadTransformation(file));
@@ -236,7 +236,7 @@ Scene Run(const fs::path& path) {
             materials.emplace_back(ReadMaterial(file));
         } else if (name == "Camera") {
             skipLine();
-            camera = ReadCamera(file, transformations);
+            camera.emplace(ReadCamera(file, transformations));
         } else if (name == "Light") {
             skipLine();
             lights.emplace_back(ReadLight(file, transformations));

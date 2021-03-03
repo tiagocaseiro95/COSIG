@@ -7,16 +7,9 @@
 class Camera {
   public:
     Camera(Transformation::Shared _world, float _distance, float _fov)
-      : world_{_world}, distance_{_distance}, fov_{_fov} {}
+      : world{_world}, distance{_distance}, fov{_fov} {}
 
-    auto getWorld() const { return world_; }
-
-    auto getDistance() const { return distance_; }
-
-    auto getFov() const { return fov_; }
-
-  private:
-    Transformation::Shared world_;
-    float distance_;
-    float fov_;
+    const Transformation::Shared world;
+    const float distance;
+    const float fov;
 };
