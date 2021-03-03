@@ -10,7 +10,7 @@ class Figure {
   public:
     using Unique = std::unique_ptr<Figure>;
     Figure(const Transformation::Shared& _world, const Material::Shared& _material)
-      : world{world}, material{_material} {}
+      : world{_world}, material{_material} {}
     virtual ~Figure()                                           = default;
     virtual bool intersects(const Ray& ray, float& depth) const = 0;
     virtual void print(std::ostream& o) const                   = 0;
