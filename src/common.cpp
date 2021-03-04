@@ -1,18 +1,21 @@
-#include "transformation.hpp"
 
-#include <cmath>
-#include <numbers>
-/**
- * @brief Converts from degrees to radians
- *
- * @param degrees
- * @return constexpr float
- */
+#include "common.hpp"
+
 static constexpr float ToRadians(const float degrees) {
     return degrees * std::numbers::pi_v<float> / 180.f;
 }
 
-Matrix44f Scale(float x, float y, float z) {
+std::ostream& operator<<(std::ostream& o, const Material& material) {
+    o << "color: " << material.color << std::endl;
+    o << "ambient_cof: " << material.ambient_cof << std::endl;
+    o << "diffuse_cof: " << material.diffuse_cof << std::endl;
+    o << "reflection_cof: " << material.reflection_cof << std::endl;
+    o << "refraction_cof: " << material.refraction_cof << std::endl;
+    o << "refraction_index: " << material.refraction_index << std::endl;
+    return o;
+}
+
+Matrix44f Transformation::Scale(float x, float y, float z) {
     auto matrix  = Matrix44f();
     matrix[0][0] = x;
     matrix[1][1] = y;
@@ -20,7 +23,7 @@ Matrix44f Scale(float x, float y, float z) {
     return matrix;
 }
 
-Matrix44f RotationX(float angle) {
+Matrix44f Transformation::RotationX(float angle) {
     auto radians = ToRadians(angle);
     auto matrix  = Matrix44f();
     matrix[1][1] = std::cos(radians);
@@ -30,7 +33,7 @@ Matrix44f RotationX(float angle) {
     return matrix;
 }
 
-Matrix44f RotationY(float angle) {
+Matrix44f Transformation::RotationY(float angle) {
     auto radians = ToRadians(angle);
     auto matrix  = Matrix44f();
     matrix[0][0] = std::cos(radians);
@@ -40,7 +43,7 @@ Matrix44f RotationY(float angle) {
     return matrix;
 }
 
-Matrix44f RotationZ(float angle) {
+Matrix44f Transformation::RotationZ(float angle) {
     auto radians = ToRadians(angle);
     auto matrix  = Matrix44f();
     matrix[0][0] = std::cos(radians);
@@ -50,7 +53,7 @@ Matrix44f RotationZ(float angle) {
     return matrix;
 }
 
-Matrix44f Translation(float x, float y, float z) {
+Matrix44f Transformation::Translation(float x, float y, float z) {
     auto matrix  = Matrix44f();
     matrix[0][3] = x;
     matrix[1][3] = y;

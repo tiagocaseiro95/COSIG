@@ -1,8 +1,6 @@
 #pragma once
 
 #include "common.hpp"
-#include "geometry.hpp"
-#include "transformation.hpp"
 
 class Light {
   public:

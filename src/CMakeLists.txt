@@ -8,11 +8,10 @@ add_executable(cosig
     figure
     image
     light
-    material
     parser
-    transformation
     ray
     raytracer
+    common
  )
 
 target_link_libraries(cosig

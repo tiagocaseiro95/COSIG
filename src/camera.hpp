@@ -1,8 +1,6 @@
 #pragma once
 
-#include <memory>
-
-#include "transformation.hpp"
+#include "common.hpp"
 
 class Camera {
   public:

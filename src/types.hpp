@@ -5,11 +5,10 @@
 #include <vector>
 
 #include "camera.hpp"
+#include "common.hpp"
 #include "figure.hpp"
 #include "image.hpp"
 #include "light.hpp"
-#include "material.hpp"
-#include "transformation.hpp"
 
 using Transformations = std::vector<Transformation::Shared>;
 using Materials       = std::vector<Material::Shared>;

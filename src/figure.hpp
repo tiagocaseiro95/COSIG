@@ -3,9 +3,8 @@
 #include <memory>
 
 #include "builder.hpp"
-#include "material.hpp"
+#include "common.hpp"
 #include "ray.hpp"
-#include "transformation.hpp"
 
 class Figure {
   public:
