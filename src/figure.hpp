@@ -23,12 +23,11 @@ class Figure {
 class Sphere : public Figure {
   public:
     using Unique = std::unique_ptr<Sphere>;
-    static Unique
-    Build(const Transformation::Shared& _transformation, const Material::Shared& _material) {
-        return std::make_unique<Sphere>(_transformation, _material);
+    static Unique Build(const Transformation::Shared& _world, const Material::Shared& _material) {
+        return std::make_unique<Sphere>(_world, _material);
     }
-    Sphere(const Transformation::Shared& _transformation, const Material::Shared& _material)
-      : Figure(_transformation, _material) {}
+    Sphere(const Transformation::Shared& _world, const Material::Shared& _material)
+      : Figure(_world, _material) {}
     ~Sphere() = default;
     void print(std::ostream& o) const override;
     bool intersects(const Ray& ray, float& depth) const override { return false; }
@@ -37,12 +36,11 @@ class Sphere : public Figure {
 class Box : public Figure {
   public:
     using Unique = std::unique_ptr<Box>;
-    static Unique
-    Build(const Transformation::Shared& _transformation, const Material::Shared& _material) {
-        return std::make_unique<Box>(_transformation, _material);
+    static Unique Build(const Transformation::Shared& _world, const Material::Shared& _material) {
+        return std::make_unique<Box>(_world, _material);
     }
-    Box(const Transformation::Shared& _transformation, const Material::Shared& _material)
-      : Figure(_transformation, _material) {}
+    Box(const Transformation::Shared& _world, const Material::Shared& _material)
+      : Figure(_world, _material) {}
     ~Box() = default;
     void print(std::ostream& o) const override;
     bool intersects(const Ray& ray, float& depth) const override { return false; }
@@ -53,20 +51,20 @@ class Triangle : public Figure {
     using Vertex = Vec3f;
     using Unique = std::unique_ptr<Triangle>;
     static Unique Build(
-        const Transformation::Shared& _transformation,
+        const Transformation::Shared& _world,
         const Material::Shared& _material,
         const Vertex& _v0,
         const Vertex& _v1,
         const Vertex& _v2) {
-        return std::make_unique<Triangle>(_transformation, _material, _v0, _v1, _v2);
+        return std::make_unique<Triangle>(_world, _material, _v0, _v1, _v2);
     }
     Triangle(
-        const Transformation::Shared& _transformation,
+        const Transformation::Shared& _world,
         const Material::Shared& _material,
         const Vertex& _v0,
         const Vertex& _v1,
         const Vertex& _v2)
-      : Figure(_transformation, _material), v0{_v0}, v1{_v1}, v2{_v2} {}
+      : Figure(_world, _material), v0{_v0}, v1{_v1}, v2{_v2} {}
     ~Triangle() = default;
     void print(std::ostream& o) const override;
     bool intersects(const Ray& ray, float& depth) const override { return false; }
