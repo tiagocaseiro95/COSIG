@@ -1,24 +1,13 @@
 #pragma once
 
-#include "color.hpp"
+#include "builder.hpp"
+#include "common.hpp"
 #include "geometry.hpp"
 
 #include <memory>
 
-class Material {
+class Material : public Builder<Material> {
   public:
-    using Shared = std::shared_ptr<Material>;
-
-    static Shared Build(
-        const Color& _color,
-        float _ambient_cof,
-        float _diffuse_cof,
-        float _reflection_cof,
-        float _refraction_cof,
-        float _refraction_index) {
-        return std::make_shared<Material>(
-            _color, _ambient_cof, _diffuse_cof, _reflection_cof, _refraction_cof, _refraction_index);
-    }
     Material(
         const Color& _color,
         float _ambient_cof,

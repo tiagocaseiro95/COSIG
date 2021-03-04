@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "color.hpp"
+#include "common.hpp"
 #include "geometry.hpp"
 
 class Image {

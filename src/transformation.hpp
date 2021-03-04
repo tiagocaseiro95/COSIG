@@ -3,13 +3,13 @@
 #include <memory>
 #include <vector>
 
+#include "builder.hpp"
 #include "geometry.hpp"
 
-struct Transformation : Matrix44f {
-    using Shared = std::shared_ptr<Transformation>;
-    static Shared Build(const Matrix44f& matrix) {
-        return std::make_shared<Transformation>(matrix);
-    }
+class Transformation
+  : public Matrix44f
+  , public Builder<Transformation> {
+  public:
     Transformation(const Matrix44f& matrix) : Matrix44f(matrix) {}
 };
 /**

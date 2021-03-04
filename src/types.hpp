@@ -14,5 +14,5 @@
 using Transformations = std::vector<Transformation::Shared>;
 using Materials       = std::vector<Material::Shared>;
 using Lights          = std::vector<Light>;
-using Figures         = std::vector<Figure::Unique>;
+using Figures         = std::vector<std::unique_ptr<Figure>>;
 using Scene           = std::tuple<Image, Camera, Lights, Figures>;

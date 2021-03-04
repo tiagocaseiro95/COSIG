@@ -8,7 +8,7 @@
 #include <optional>
 #include <vector>
 
-#include "color.hpp"
+#include "common.hpp"
 
 namespace Parser {
 
@@ -80,7 +80,7 @@ static auto ReadTransformation(std::fstream& file) {
     }
     auto matrix = std::reduce(
         std::cbegin(matrices), std::cend(matrices), Matrix44f{}, std::multiplies{});
-    return Transformation::Build(matrix);
+    return Transformation::Build<Transformation::Shared>(matrix);
 }
 
 static auto ReadMaterial(std::fstream& file) {
@@ -98,7 +98,7 @@ static auto ReadMaterial(std::fstream& file) {
     auto is               = std::istringstream{line};
     is >> ambient_cof >> diffuse_cof >> reflection_cof >> refraction_cof >> refraction_index;
 
-    return Material::Build(
+    return Material::Build<Material::Shared>(
         color, ambient_cof, diffuse_cof, reflection_cof, refraction_cof, refraction_index);
 }
 
@@ -121,7 +121,8 @@ static auto ReadCamera(std::fstream& file, const Transformations& transformation
     is       = std::istringstream{line};
     is >> fov;
 
-    return Camera(Transformation::Build(transformation->inverse()), distance, fov);
+    return Camera(
+        Transformation::Build<Transformation::Shared>(transformation->inverse()), distance, fov);
 }
 
 static auto ReadLight(std::fstream& file, const Transformations& transformations) {
@@ -154,7 +155,7 @@ ReadSphere(std::fstream& file, const Transformations& transformations, const Mat
     is >> index;
     auto material = materials[index];
 
-    return Sphere::Build(transformation, material);
+    return Sphere::Build<Sphere::Unique>(transformation, material);
 }
 
 static auto
@@ -172,7 +173,7 @@ ReadBox(std::fstream& file, const Transformations& transformations, const Materi
     is >> index;
     auto material = materials[index];
 
-    return Box::Build(transformation, material);
+    return Box::Build<Box::Unique>(transformation, material);
 }
 
 static inline auto ReadVertex(std::fstream& file) {
@@ -189,7 +190,7 @@ ReadTriangle(std::fstream& file, Transformation::Shared transformation, Material
     auto v0 = ReadVertex(file);
     auto v1 = ReadVertex(file);
     auto v2 = ReadVertex(file);
-    return Triangle::Build(transformation, material, v0, v1, v2);
+    return Triangle::Build<Triangle::Unique>(transformation, material, v0, v1, v2);
 }
 
 static auto ReadTriangles(
@@ -204,7 +205,7 @@ static auto ReadTriangles(
     is >> index;
 
     auto transformation = transformations[index];
-    auto triangles      = std::vector<Triangle::Unique>();
+    auto triangles      = std::vector<Triangle::Unique>{};
 
     while (std::getline(file, line) && line != END_CHAR) {
         is = std::istringstream{line};

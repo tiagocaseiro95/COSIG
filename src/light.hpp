@@ -1,6 +1,6 @@
 #pragma once
 
-#include "color.hpp"
+#include "common.hpp"
 #include "geometry.hpp"
 #include "transformation.hpp"
 
