@@ -35,7 +35,7 @@ class Transformation
   : public Matrix44f
   , public Builder<Transformation> {
   public:
-    Transformation(const Matrix44f& matrix) : Matrix44f(matrix) {}
+    Transformation(const Matrix44f& matrix = Matrix44f()) : Matrix44f(matrix) {}
     static Matrix44f Scale(float x, float y, float z);
     static Matrix44f RotationX(float angle);
     static Matrix44f RotationY(float angle);
