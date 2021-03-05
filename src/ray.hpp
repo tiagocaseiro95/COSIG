@@ -1,7 +1,8 @@
 #pragma once
 
-#include "geometry.hpp"
 #include <iostream>
+
+#include "geometry.hpp"
 
 class Ray {
   public:
