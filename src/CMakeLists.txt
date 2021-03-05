@@ -7,7 +7,6 @@ add_executable(cosig
     camera
     figure
     image
-    light
     parser
     ray
     raytracer
