@@ -34,14 +34,14 @@ int main(int ac, char const* av[]) {
         std::cout << "Scene file must be set" << std::endl;
         return 1;
     }
-    // auto now        = std::chrono::steady_clock::now();
     auto scene      = Parser::Run(path);
     auto ray_tracer = RayTracer();
+    auto now        = std::chrono::steady_clock::now();
     ray_tracer.render(scene, "output.ppm");
-    // auto elapsed = std::chrono::steady_clock::now() - now;
-    // std::cout << "Time elapsed: "
-    //           << std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count() << " ms"
-    //           << std::endl;
+    auto elapsed = std::chrono::steady_clock::now() - now;
+    std::cout << "Time elapsed: "
+              << std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count() << " ms"
+              << std::endl;
 
     return 0;
 }
